@@ -1,13 +1,19 @@
+import { useState } from "react";
+import { Howl } from "howler";
 import MainImg from "./assets/imgs/main.png";
 import TopLight from "./assets/imgs/top.png";
 import BottomLight from "./assets/imgs/bottom.png";
 import RightLight from "./assets/imgs/right.png";
-import { useState } from "react";
 
 export const Images = () => {
-  const [isFirstOpen, setIsFirstOpen] = useState(false);
-  const [isSecondOpen, setIsSecondOpen] = useState(false);
-  const [isThirdOpen, setIsThirdOpen] = useState(false);
+  const [isFirstOpen, setIsFirstOpen] = useState(true);
+  const [isSecondOpen, setIsSecondOpen] = useState(true);
+  const [isThirdOpen, setIsThirdOpen] = useState(true);
+
+  const sound = new Howl({
+    src: ["src/assets/audio/light-on.mp3"],
+    volume: 0.5,
+  });
 
   return (
     <div className="max-w-5xl relative">
@@ -36,15 +42,24 @@ export const Images = () => {
 
       <button
         className="absolute w-[7%] aspect-square left-[26%] top-0 -translate-y-[17%]"
-        onClick={() => setIsFirstOpen((prev) => !prev)}
+        onClick={() => {
+          sound.play();
+          setIsFirstOpen((prev) => !prev);
+        }}
       ></button>
       <button
         className="absolute w-[7%] aspect-square left-[12.5%] bottom-0 translate-y-[17%]"
-        onClick={() => setIsSecondOpen((prev) => !prev)}
+        onClick={() => {
+          setIsSecondOpen((prev) => !prev);
+          sound.play();
+        }}
       ></button>
       <button
         className="absolute w-[7%] aspect-square top-[34%] right-0 translate-x-[17%]"
-        onClick={() => setIsThirdOpen((prev) => !prev)}
+        onClick={() => {
+          setIsThirdOpen((prev) => !prev);
+          sound.play();
+        }}
       ></button>
     </div>
   );
