@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Howl } from "howler";
 import MainImg from "./assets/imgs/main.png";
 import TopLight from "./assets/imgs/top.png";
@@ -6,9 +6,23 @@ import BottomLight from "./assets/imgs/bottom.png";
 import RightLight from "./assets/imgs/right.png";
 
 export const Images = () => {
-  const [isFirstOpen, setIsFirstOpen] = useState(true);
-  const [isSecondOpen, setIsSecondOpen] = useState(true);
-  const [isThirdOpen, setIsThirdOpen] = useState(true);
+  const [isFirstOpen, setIsFirstOpen] = useState(false);
+  const [isSecondOpen, setIsSecondOpen] = useState(false);
+  const [isThirdOpen, setIsThirdOpen] = useState(false);
+
+  useEffect(() => {
+    const timeout3 = setTimeout(() => {
+      setIsThirdOpen(true);
+    }, 800);
+    const timeout1 = setTimeout(() => {
+      setIsSecondOpen(true);
+    }, 1400);
+    const timeout2 = setTimeout(() => {
+      setIsFirstOpen(true);
+    }, 1100);
+
+    return () => clearTimeout(timeout1, timeout2, timeout3);
+  }, []);
 
   const sound = new Howl({
     src: ["src/assets/audio/light-on.mp3"],
